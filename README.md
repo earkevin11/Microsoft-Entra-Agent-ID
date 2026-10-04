@@ -34,6 +34,13 @@
 
 Agent identities are **special service principals in Microsoft Entra ID** designed specifically for AI agents and autonomous workloads. They represent identity accounts that enable AI agents and other workloads where traditional user accounts and standard application identities prove insufficient.
 
+Agent identities would be the primary account used by an AI agent to authenticate to various systems. Has unique identifiers - the object ID and the app ID (which always have the same value) - which can be reliably used for authentication and authorization decisions. Agent identities can be used to:
+
+- Request agent tokens from Entra. The subject of the access token will be the agent identity.
+- Receive incoming access tokens issued by Entra. The audience of the access token will be the agent identity.
+- Request user tokens from Entra for an authenticated user. The subject of the token will be a user, while the actor (azp or appId claim) will be the agent identity.
+- Agent identities do not have a password or any other kind of credential. Instead, agent identities can only authenticate by presenting an access token issued to the service / platform on which the agent runs (see below). Agent identities can only be issued tokens in the Entra tenant where they are created. They cannot access resources or APIs in other tenants.
+
 According to Microsoft's official documentation, agent identities:
 - Are distinct from standard Service Principals
 - Are purpose-built for autonomous and semi-autonomous AI agents
